@@ -1,6 +1,6 @@
 {
     'name': 'Dawami Connect - Mobile Attendance with GPS & Anti-Fraud',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.0.1',
     'category': 'Human Resources/Attendances',
     'summary': 'Mobile check-in with branch geofence, fake-GPS and new-device detection, '
                'synced into Odoo Attendances by the Dawami app',
