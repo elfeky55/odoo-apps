@@ -1,9 +1,8 @@
 {
     'name': 'Dawami Connect - Mobile Attendance with GPS & Anti-Fraud | دوامي حضور وانصراف بالموبايل',
-    'version': '18.0.1.0.5',
+    'version': '18.0.1.0.6',
     'category': 'Human Resources/Attendances',
-    'summary': 'Mobile check-in with branch geofence, fake-GPS and new-device detection, '
-               'synced into Odoo Attendances by the Dawami app',
+    'summary': 'Connect Odoo to the Dawami mobile attendance & HR app: GPS check-in, fake-GPS detection, shifts, leaves, payroll',
     'description': """
 Dawami Connect links Odoo Attendances to Dawami (https://dawamihr.solutions),
 a mobile attendance app for employees on Android, iPhone and the web.
