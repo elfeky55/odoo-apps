@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_attendance_tree_dawami" model="ir.ui.view">
+        <field name="name">hr.attendance.list.dawami</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <field name="check_out" position="after">
+                <field name="dawami_in_flag" widget="badge" optional="show"
+                       decoration-success="dawami_in_flag in ('ok', 'mission')"
+                       decoration-warning="dawami_in_flag in ('outside', 'no_location', 'new_device')"
+                       decoration-danger="dawami_in_flag == 'mocked'"/>
+                <field name="dawami_out_flag" widget="badge" optional="show"
+                       decoration-success="dawami_out_flag in ('ok', 'mission')"
+                       decoration-warning="dawami_out_flag in ('outside', 'no_location', 'new_device')"
+                       decoration-danger="dawami_out_flag == 'mocked'"/>
+                <field name="dawami_in_distance" optional="hide"/>
+                <field name="dawami_out_distance" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_attendance_view_form_dawami" model="ir.ui.view">
+        <field name="name">hr.attendance.form.dawami</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='check_out_group']" position="after">
+                <group string="Dawami verification" name="dawami_group" colspan="2" invisible="not dawami_recorded">
+                    <field name="dawami_recorded" invisible="1"/>
+                    <group>
+                        <field name="dawami_in_flag" widget="badge"
+                               decoration-success="dawami_in_flag in ('ok', 'mission')"
+                               decoration-warning="dawami_in_flag in ('outside', 'no_location', 'new_device')"
+                               decoration-danger="dawami_in_flag == 'mocked'"/>
+                        <field name="dawami_in_distance" invisible="not dawami_in_flag"/>
+                    </group>
+                    <group>
+                        <field name="dawami_out_flag" widget="badge" invisible="not dawami_out_flag"
+                               decoration-success="dawami_out_flag in ('ok', 'mission')"
+                               decoration-warning="dawami_out_flag in ('outside', 'no_location', 'new_device')"
+                               decoration-danger="dawami_out_flag == 'mocked'"/>
+                        <field name="dawami_out_distance" invisible="not dawami_out_flag"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_attendance_view_filter_dawami" model="ir.ui.view">
+        <field name="name">hr.attendance.search.dawami</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="arch" type="xml">
+            <filter name="myattendances" position="before">
+                <filter string="From Dawami" name="dawami_recorded" domain="[('dawami_recorded', '=', True)]"/>
+                <filter string="Needs review" name="dawami_review" domain="[('dawami_suspicious', '=', True)]"/>
+                <filter string="Outside the branch" name="dawami_outside"
+                        domain="['|', ('dawami_in_flag', '=', 'outside'), ('dawami_out_flag', '=', 'outside')]"/>
+                <filter string="Fake GPS" name="dawami_mocked"
+                        domain="['|', ('dawami_in_flag', '=', 'mocked'), ('dawami_out_flag', '=', 'mocked')]"/>
+                <filter string="New device" name="dawami_new_device"
+                        domain="['|', ('dawami_in_flag', '=', 'new_device'), ('dawami_out_flag', '=', 'new_device')]"/>
+                <separator/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_dawami_attendance" model="ir.actions.act_window">
+        <field name="name">Attendance from Dawami</field>
+        <field name="res_model">hr.attendance</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="context">{'search_default_dawami_recorded': 1, 'create': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No attendance from Dawami yet</p>
+            <p>Once your employees check in from the Dawami app, their attendance appears here
+               with the branch verification.</p>
+        </field>
+    </record>
+</odoo>

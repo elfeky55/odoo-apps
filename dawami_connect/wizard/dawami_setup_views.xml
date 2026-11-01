@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="dawami_connect_setup_view_form" model="ir.ui.view">
+        <field name="name">dawami.connect.setup.form</field>
+        <field name="model">dawami.connect.setup</field>
+        <field name="arch" type="xml">
+            <form string="Dawami" create="0" edit="0" delete="0">
+                <header>
+                    <button name="action_generate" type="object" class="btn-primary"
+                            string="Connect with Dawami" invisible="connected"/>
+                    <button name="action_generate" type="object" string="Generate a new key"
+                            invisible="not connected"
+                            confirm="The current key will stop working. Continue?"/>
+                    <button name="action_open_dawami" type="object" string="Open Dawami HR panel"/>
+                    <button name="action_disconnect" type="object" string="Disconnect"
+                            invisible="not connected"
+                            confirm="Dawami will stop sending attendance to this Odoo. Continue?"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Dawami Connect</h1>
+                        <p class="text-muted">
+                            Your employees check in from the Dawami app with branch geofence and fake-GPS
+                            detection, and their attendance arrives here in Odoo.
+                        </p>
+                    </div>
+
+                    <div class="alert alert-info" role="alert" invisible="connected">
+                        <strong>No Dawami account yet?</strong>
+                        Start a free trial, then come back and press <b>Connect with Dawami</b>.
+                        <button name="action_try_dawami" type="object" class="btn-link p-0 ms-1"
+                                string="Start a free trial"/>
+                    </div>
+
+                    <div class="alert alert-warning" role="alert" invisible="state != 'key'">
+                        <strong>Copy these four values now.</strong>
+                        In Dawami, open <b>Company setup &#8594; Odoo link</b> and paste them.
+                        The API key is shown only once.
+                    </div>
+                    <group string="Connection details" invisible="state != 'key'">
+                        <field name="odoo_url" widget="CopyClipboardChar"/>
+                        <field name="database" widget="CopyClipboardChar"/>
+                        <field name="login" widget="CopyClipboardChar"/>
+                        <field name="api_key" widget="CopyClipboardChar"/>
+                    </group>
+
+                    <group string="Status" invisible="not connected">
+                        <group>
+                            <field name="connected"/>
+                            <field name="last_dawami"/>
+                        </group>
+                        <group>
+                            <field name="dawami_today"/>
+                            <label for="suspicious_today"/>
+                            <div class="o_row">
+                                <field name="suspicious_today"/>
+                                <button name="action_open_review" type="object" class="btn-link"
+                                        string="Review" invisible="not suspicious_today"/>
+                            </div>
+                        </group>
+                    </group>
+                    <field name="state" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dawami_connect_setup" model="ir.actions.act_window">
+        <field name="name">Dawami</field>
+        <field name="res_model">dawami.connect.setup</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

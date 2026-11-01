@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_dawami_root" name="Dawami" sequence="95"
+              web_icon="dawami_connect,static/description/icon.png"
+              groups="base.group_system,hr_attendance.group_hr_attendance_officer"/>
+    <menuitem id="menu_dawami_setup" name="Connection" parent="menu_dawami_root" sequence="10"
+              action="action_dawami_connect_setup" groups="base.group_system"/>
+    <menuitem id="menu_dawami_attendance" name="Attendance from Dawami" parent="menu_dawami_root" sequence="20"
+              action="action_dawami_attendance" groups="hr_attendance.group_hr_attendance_officer"/>
+</odoo>
