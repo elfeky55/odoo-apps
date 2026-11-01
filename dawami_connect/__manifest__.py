@@ -1,6 +1,6 @@
 {
-    'name': 'Dawami Connect - Mobile Attendance with GPS & Anti-Fraud',
-    'version': '19.0.1.0.1',
+    'name': 'Dawami Connect - Mobile Attendance with GPS & Anti-Fraud | دوامي حضور وانصراف بالموبايل',
+    'version': '19.0.1.0.2',
     'category': 'Human Resources/Attendances',
     'summary': 'Mobile check-in with branch geofence, fake-GPS and new-device detection, '
                'synced into Odoo Attendances by the Dawami app',
@@ -20,6 +20,7 @@ A Dawami subscription is required (free trial available).
 """,
     'author': 'etriplesoft',
     'website': 'https://dawamihr.solutions',
+    'live_test_url': 'https://dawamihr.solutions/?utm_source=odoo_apps',
     'license': 'LGPL-3',
     'depends': ['hr_attendance'],
     'data': [
