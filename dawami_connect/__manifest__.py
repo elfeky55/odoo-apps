@@ -19,7 +19,7 @@ A Dawami subscription is required (free trial available).
 """,
     'author': 'etriplesoft',
     'website': 'https://dawamihr.solutions',
-    'live_test_url': 'https://dawamihr.solutions/?utm_source=odoo_apps',
+    'live_test_url': 'https://demo.dawamihr.solutions/demo',
     'license': 'LGPL-3',
     'depends': ['hr_attendance'],
     'data': [
